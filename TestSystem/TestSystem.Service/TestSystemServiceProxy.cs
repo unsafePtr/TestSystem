@@ -23,46 +23,45 @@ namespace TestSystem.Service
         }
 
         /// <summary>
-        /// check claims authorization rights
+        /// check claim authorization rights
         /// </summary>
-        /// <param name="methodName"></param>
-        public void CheckClaimsAttributes(string methodName)
+        /// <param name="claimType"></param>
+        /// <param name="claimValue"></param>
+        public void ThrowIfNotAllowedAccess(string claimType, string claimValue)
         {
-            MethodBase methodBase = typeof(TestSystemServiceProxy).GetMethod(methodName);
+            ClaimsPrincipal identity = (ClaimsPrincipal)Thread.CurrentPrincipal;
 
-            var claimCheckAttributes = methodBase.GetCustomAttributes<ClaimCheckAttribute>();
+            bool isAllowedAccess = identity.Claims
+                .Where(c => c.Type == claimType && c.Value == claimValue)
+                .Any();
 
-            if(!claimCheckAttributes.All(c => c.IsAllowedAccess))
+            if(!isAllowedAccess)
             {
-                throw new ActionClaimTypeException($"Provided credentials are not satisfied to access the method {methodName}");
+                throw new ActionClaimTypeException($"Provided credentials are not satisfied to access the method");
             }
         }
-
-        [ClaimCheck(ActionClaimType.ActionPermission, ActionPermissionValues.AddAnswer)]
+        
         public async Task<int> AddAnswerAsync(AnswerDto answer)
         {
-            CheckClaimsAttributes(nameof(AddAnswerAsync));
+            ThrowIfNotAllowedAccess(ActionClaimType.ActionPermission, ActionPermissionValues.AddAnswer);
             return await service.AddAnswerAsync(answer);
         }
-
-        [ClaimCheck(ActionClaimType.ActionPermission, ActionPermissionValues.AddQuestion)]
+        
         public async Task<int> AddQuestionAsync(int testId, QuestionDto question)
         {
-            CheckClaimsAttributes(nameof(AddQuestionAsync));
+            ThrowIfNotAllowedAccess(ActionClaimType.ActionPermission, ActionPermissionValues.AddQuestion);
             return await service.AddQuestionAsync(testId, question);
         }
-
-        [ClaimCheck(ActionClaimType.ActionPermission, ActionPermissionValues.AddUserTest)]
+        
         public async Task<int> AddUserTestAsync(UserTestDto userTest)
         {
-            CheckClaimsAttributes(nameof(AddUserTestAsync));
+            ThrowIfNotAllowedAccess(ActionClaimType.ActionPermission, ActionPermissionValues.AddUserTest);
             return await service.AddUserTestAsync(userTest);
         }
-
-        [ClaimCheck(ActionClaimType.ActionPermission, ActionPermissionValues.CreateTest)]
+        
         public async Task<int> CreateTestAsync(TestDto test)
         {
-            CheckClaimsAttributes(nameof(CreateTestAsync));
+            ThrowIfNotAllowedAccess(ActionClaimType.ActionPermission, ActionPermissionValues.CreateTest);
             return await service.CreateTestAsync(test);
         }
 
@@ -70,39 +69,34 @@ namespace TestSystem.Service
         {
             return await service.CreateUserAsync();
         }
-
-        [ClaimCheck(ActionClaimType.ActionPermission, ActionPermissionValues.EndUserTest)]
+        
         public async Task EndUserTestAsync(int userTestId)
         {
-            CheckClaimsAttributes(nameof(EndUserTestAsync));
+            ThrowIfNotAllowedAccess(ActionClaimType.ActionPermission, ActionPermissionValues.EndUserTest);
             await service.EndUserTestAsync(userTestId);
         }
-
-        [ClaimCheck(ActionClaimType.ActionPermission, ActionPermissionValues.GetTests)]
+        
         public async Task<IEnumerable<TestDto>> GetTestsAsync()
         {
-            CheckClaimsAttributes(nameof(GetTestsAsync));
+            ThrowIfNotAllowedAccess(ActionClaimType.ActionPermission, ActionPermissionValues.GetTests);
             return await service.GetTestsAsync();
         }
-
-        [ClaimCheck(ActionClaimType.ActionPermission, ActionPermissionValues.GetTests)]
+        
         public async Task<IEnumerable<TestDto>> GetTestsAsync(string userId)
         {
-            CheckClaimsAttributes(nameof(GetTestsAsync));
+            ThrowIfNotAllowedAccess(ActionClaimType.ActionPermission, ActionPermissionValues.GetTests);
             return await service.GetTestsAsync(userId);
         }
-
-        [ClaimCheck(ActionClaimType.ActionPermission, ActionPermissionValues.GetUserTest)]
+        
         public async Task<UserTestDto> GetUserTestAsync(int userTestId)
         {
-            CheckClaimsAttributes(nameof(GetUserTestAsync));
+            ThrowIfNotAllowedAccess(ActionClaimType.ActionPermission, ActionPermissionValues.GetUserTest);
             return await service.GetUserTestAsync(userTestId);
         }
-
-        [ClaimCheck(ActionClaimType.ActionPermission, ActionPermissionValues.StartUserTest)]
+        
         public async Task StartUserTestAsync(int userTestId)
         {
-            CheckClaimsAttributes(nameof(StartUserTestAsync));
+            ThrowIfNotAllowedAccess(ActionClaimType.ActionPermission, ActionPermissionValues.StartUserTest);
             await service.StartUserTestAsync(userTestId);
         }
     }
