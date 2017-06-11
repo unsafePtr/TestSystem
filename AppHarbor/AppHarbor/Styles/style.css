@@ -103,7 +103,7 @@ ol li
 { width: 878px;
   position: relative;
   height: 134px;
-  background: #3A332D url(logo.png) no-repeat;}
+  background: #3A332D url(./img/logo.png) no-repeat;}
 
 #logo #logo_text 
 { position: absolute; 
@@ -143,7 +143,7 @@ ul#menu li
   padding: 0 0 0 6px;
   list-style: none;
   margin: 2px 2px 0 0;
-  background: #635B53 url(tab.png) no-repeat 0 0;}
+  background: #635B53 url(./img/tab.png) no-repeat 0 0;}
 
 ul#menu li a
 { font: normal 100% 'trebuchet ms', sans-serif;
@@ -154,30 +154,34 @@ ul#menu li a
   text-align: center;
   color: #FFF;
   text-decoration: none;
-  background: #635B53 url(tab.png) no-repeat 100% 0;} 
+  background: #635B53 url(./img/tab.png) no-repeat 100% 0;} 
 
 ul#menu li.tab_selected a
 { height: 20px;
   padding: 6px 28px 5px 22px;}
 
-ul#menu li.selected
-{ margin: 2px 2px 0 0;
-  background: #635B53 url(tab_selected.png) no-repeat 0 0;}
+    ul#menu li.selected {
+        margin: 2px 2px 0 0;
+        background: #635B53 url(./img/tab_selected.png) no-repeat 0 0;
+    }
 
-ul#menu li.selected a, ul#menu li.selected a:hover
-{ background: #635B53 url(tab_selected.png) no-repeat 100% 0;
-  color: #111;}
+        ul#menu li.selected a, ul#menu li.selected a:hover {
+            background: #635B53 url(./img/tab_selected.png) no-repeat 100% 0;
+            color: #111;
+        }
 
 ul#menu li a:hover
 { color: #ECEF01;}
 
-#content_header, #content_footer
-{ width: 940px;
-  background: url(content_header.png) no-repeat;
-  height: 14px;}
+#content_header, #content_footer {
+    width: 940px;
+    background: url(./img/content_header.png) no-repeat;
+    height: 14px;
+}
 
-#content_footer
-{ background: url(content_footer.png) no-repeat;}
+#content_footer {
+    background: url(./img/content_footer.png) no-repeat;
+}
 
 #site_content
 { width: 878px;
@@ -202,10 +206,11 @@ ul#menu li a:hover
 { list-style: none; 
   padding: 0 0 7px 0; }
 
-.sidebar li a, .sidebar li a:hover
-{ padding: 0 0 0 35px;
-  display: block;
-  background: transparent url(link.png) no-repeat left center;} 
+    .sidebar li a, .sidebar li a:hover {
+        padding: 0 0 0 35px;
+        display: block;
+        background: transparent url(./img/link.png) no-repeat left center;
+    } 
 
 .sidebar li a.selected
 { color: #444;
@@ -219,12 +224,13 @@ ul#menu li a:hover
 #content ul
 { margin: 2px 0 22px 0px;}
 
-#content ul li
-{ list-style-type: none;
-  background: url(bullet.png) no-repeat;
-  margin: 0 0 6px 0; 
-  padding: 0 0 4px 25px;
-  line-height: 1.5em;}
+    #content ul li {
+        list-style-type: none;
+        background: url(./img/bullet.png) no-repeat;
+        margin: 0 0 6px 0;
+        padding: 0 0 4px 25px;
+        line-height: 1.5em;
+    }
 
 #footer
 { width: 916px;
