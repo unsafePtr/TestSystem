@@ -1,0 +1,37 @@
+﻿@model TestSystem.Service.Dtos.TestDto
+@using TestSystem.DbAccess.Entities
+@{
+
+    ViewBag.Title = "CreateTest";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    var testStatuses = Enum.GetValues(typeof(TestStatusEnum)).Cast<TestStatusEnum>()
+        .Select(s => new SelectListItem() { Text = s.ToString(), Value = ((int)s).ToString() })
+        .ToArray();
+}
+
+@using (Html.BeginForm("CreateTest", "Lector", FormMethod.Post))
+{
+    <div>
+        <label>Test name:</label>
+        @Html.TextBoxFor(m => m.Name)
+    </div>
+    <div>
+        <label>Total questions count which be used on test creation:</label>        
+        @Html.TextBoxFor(m => m.QuestionsCount)
+    </div>
+    <div>
+        <label>How much question should be answered to pass the test:</label>        
+        @Html.TextBoxFor(m => m.QuestionsForPassing)
+    </div>
+    <div>
+        <label>Test status</label>
+        @Html.DropDownListFor(m => m.TestStatusId, testStatuses)
+    </div>
+}
+
+<script>
+
+</script>
+

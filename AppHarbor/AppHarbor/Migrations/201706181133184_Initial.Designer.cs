@@ -13,7 +13,7 @@ namespace AppHarbor.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201706111757266_Initial"; }
+            get { return "201706181133184_Initial"; }
         }
         
         string IMigrationMetadata.Source

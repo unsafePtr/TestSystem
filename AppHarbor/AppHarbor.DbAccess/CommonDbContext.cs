@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DbAccess.Entities;
+﻿using System.Data.Entity;
 using TestSystem.DbAccess.Context;
 using TestSystem.DbAccess.Entities;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using AppHarbor.DbAccess.Entities;
+using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace DbAccess
+namespace AppHarbor.DbAccess
 {
     /// <summary>
     /// will be used just fro db creation
     /// </summary>
-    public class CommonDbContext : DbContext, IAppHarborDbContext, ITestSystemDbContext
+    public class CommonDbContext : IdentityDbContext<User>, IAppHarborDbContext, ITestSystemDbContext
     {
         public CommonDbContext() : this("ConnectionString") { }
 
@@ -29,21 +25,8 @@ namespace DbAccess
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ModelCreatingConfig();
-
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.Roles)
-                .WithMany(r => r.Users)
-                .Map(m => m
-                    .ToTable("UserRoles")
-                    .MapLeftKey("UserId")
-                    .MapRightKey("RoleId")
-                );
         }
-
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<ClaimEntity> Claims { get; set; }
+        
         public DbSet<TestSystemUser> TestSystemUsers { get; set; }
         public DbSet<TestStatus> TestStatuses { get; set; }
         public DbSet<Test> Tests { get; set; }

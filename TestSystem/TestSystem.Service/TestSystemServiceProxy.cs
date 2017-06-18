@@ -93,7 +93,14 @@ namespace TestSystem.Service
             ThrowIfNotAllowedAccess(ActionClaimType.ActionPermission, ActionPermissionValues.GetUserTest);
             return await service.GetUserTestAsync(userTestId);
         }
-        
+
+        public async Task<IEnumerable<UserTestDto>> GetUserTestsAsync(string userId)
+        {
+            ThrowIfNotAllowedAccess(ActionClaimType.ActionPermission, ActionPermissionValues.GetUserTest);
+            return await service.GetUserTestsAsync(userId);
+        }
+
+
         public async Task StartUserTestAsync(int userTestId)
         {
             ThrowIfNotAllowedAccess(ActionClaimType.ActionPermission, ActionPermissionValues.StartUserTest);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppHarbor.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,7 @@ namespace AppHarbor
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            SimpleInjectorConfig.Configure();
         }
     }
 }

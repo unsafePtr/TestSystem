@@ -1,0 +1,76 @@
+﻿@using TestSystem.Service.Dtos
+@model UserTestDto
+@{
+    ViewBag.Title = "UserTest";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var questions = new List<QuestionDto>(Model.Test.Questions);
+}
+
+<h2>Test</h2>
+<div>
+    @if (Model.Start == Model.End)
+    {
+        <label>Press start when you are ready</label>
+        <a href="@Url.Action("StartTest", "Test", new { userTestId = Model.Id })"><input type="button" value="Start!"/></a>
+    }
+    else
+    {
+        <span id="duration"></span>
+        <script>
+        var totalTime = @Model.Test.Duration;
+        var el = document.getElementById("duration");
+        setInterval(() => el.innerText = totalTime-1, 1)
+        </script>
+
+        <div>
+            @using (Html.BeginForm("SubmitQuestions", "Test", FormMethod.Post))
+            {
+                <input type="hidden" value="@Model.Id" name="UserTestId" />
+                for (int i = 0; i < questions.Count; i++)
+                {
+                    <div>
+                    @{
+                        var question = questions[i];
+                        var options = new List<QuestionAnswerOptionDto>(question.Options);
+                        var name = $"answers[{i}]";
+                        var questionIdName = $"{name}.QuestionId";
+                    }
+                        <h4>@question.Content</h4>
+                        @if (question.QuestionTypeId == TestSystem.DbAccess.Entities.QuestionTypeEnum.Closed)
+                        {
+                            for (int j = 0; j < options.Count; j++)
+                            {
+                                <div>
+                                    @{
+                                        var option = options[j];
+                                        var content = $"{name}.Contents[{j}]";
+                                    }
+                                    <input name="@questionIdName" value="@question.Id" type="hidden" />
+                                    <span>@option.Content</span>
+                                    <span>
+                                        <input type="hidden" name="@content" value="@option.Content" />
+                                        <input type="checkbox" />
+                                    </span>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div>
+                                <input name="@questionIdName" value="@question.Id" type="hidden" />
+                                <span>
+                                   @Html.TextArea($"{name}.Contents[0]");
+                                </span>
+                            </div>
+                        }
+                    </div>
+                }
+                <div>
+                    <input type="submit" value="Submit answers">
+                </div>
+            }
+        </div>
+    }
+</div>
+

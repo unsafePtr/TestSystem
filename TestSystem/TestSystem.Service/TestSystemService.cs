@@ -157,6 +157,24 @@ namespace TestSystem.Service
             return userTestDto;
         }
 
+        public async Task<IEnumerable<UserTestDto>> GetUserTestsAsync(string userId)
+        {
+            UserTest[] userTests = await context.UserTests
+                .Include(ut => ut.Test)
+                .Where(ut => ut.UserId == userId)
+                .ToArrayAsync();
+
+            return userTests.Select(userTest =>
+            {
+                UserTestDto userTestDto = new UserTestDto();
+                userTestDto.CopyEntityData(userTest);
+                userTestDto.Test = new TestDto(userTest.Test);
+                userTestDto.Test.Questions = userTest.Test.Questions.Select(q => new QuestionDto(q)).ToArray();
+
+                return userTestDto;
+            });
+        }
+
         public async Task<int> AddQuestionAsync(int testId, QuestionDto question)
         {
             Test test = await context.Tests.FindAsync(testId);

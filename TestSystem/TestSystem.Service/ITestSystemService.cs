@@ -44,6 +44,12 @@ namespace TestSystem.Service
         /// <returns></returns>
         Task<UserTestDto> GetUserTestAsync(int userTestId);
         /// <summary>
+        /// Return tests assigned to user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<IEnumerable<UserTestDto>> GetUserTestsAsync(string userId);
+        /// <summary>
         /// Add question to existing which is not assigned to test.
         /// </summary>
         /// <param name="testId"></param>
@@ -62,6 +68,11 @@ namespace TestSystem.Service
         /// <param name="userTestId"></param>
         /// <returns></returns>
         Task StartUserTestAsync(int userTestId);
+        /// <summary>
+        /// Ends started test. If test already ended, do nothing.
+        /// </summary>
+        /// <param name="userTestId"></param>
+        /// <returns></returns>
         Task EndUserTestAsync(int userTestId);
     }
 }

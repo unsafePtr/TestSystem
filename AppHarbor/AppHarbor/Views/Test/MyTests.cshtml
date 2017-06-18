@@ -1,0 +1,21 @@
+﻿@model IEnumerable<TestSystem.Service.Dtos.UserTestDto>
+@{
+    ViewBag.Title = "MyTests";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@if ((Model as ICollection<TestSystem.Service.Dtos.UserTestDto>)?.Count == 0)
+{
+    <h4>There is no any test</h4>
+}
+else
+{
+
+    foreach (var item in Model)
+    {
+        <div>
+            <h4><a href="@Url.Action("UserTest", "Test", new { userTestId = item.Id })">@item.Test.Name</a></h4>
+        </div>
+    }
+}

@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "CreateSomeTest";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CreateSomeTest</h2>
+@if (ViewBag.Exception != null)
+{
+    <div>
+        @ViewBag.Exception
+    </div>
+}
+else
+{
+    <div>Test successfuly created!</div>
+}
+

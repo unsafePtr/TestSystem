@@ -1,0 +1,21 @@
+﻿@model IEnumerable<TestSystem.Service.Dtos.TestDto>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if ((Model as ICollection<TestSystem.Service.Dtos.TestDto>)?.Count == 0)
+{
+    <h4>There is no any test</h4>
+}
+else
+{
+    
+    foreach (var item in Model)
+    {
+        <div>
+            <h4>@item.Name</h4>
+            <span>@item.Description</span>
+            <a href="@Url.Action("AssignToTest", "Test", new { testId = item.Id })">Assign to test</a>
+        </div>
+    }
+}
