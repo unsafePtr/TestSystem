@@ -55,6 +55,12 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Transactions" />
+    <Reference Include="TestSystem.Common">
+      <HintPath>..\TestSystem.Common\bin\Debug\TestSystem.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="TestSystem.DbAccess">
+      <HintPath>..\TestSystem.DbAccess\bin\Debug\TestSystem.DbAccess.dll</HintPath>
+    </Reference>
     <Reference Include="TestSystem.Service">
       <HintPath>..\TestSystem.Service\bin\Debug\TestSystem.Service.dll</HintPath>
     </Reference>
@@ -66,12 +72,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TestSystem.DbAccess\TestSystem.DbAccess.csproj">
-      <Project>{E269DF04-1C14-4E31-BC4A-4CF89386378C}</Project>
-      <Name>TestSystem.DbAccess</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

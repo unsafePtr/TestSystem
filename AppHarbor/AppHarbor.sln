@@ -21,6 +21,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSystem.Service", "..\TestSystem\TestSystem.Service\TestSystem.Service.csproj", "{8D8A37B1-1A3B-46E5-8737-EE4A62B03E47}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E269DF04-1C14-4E31-BC4A-4CF89386378C} = {E269DF04-1C14-4E31-BC4A-4CF89386378C}
+		{F237DEEA-BA3A-4E80-A89A-3A3AEE868398} = {F237DEEA-BA3A-4E80-A89A-3A3AEE868398}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSystem.DbAccess", "..\TestSystem\TestSystem.DbAccess\TestSystem.DbAccess.csproj", "{E269DF04-1C14-4E31-BC4A-4CF89386378C}"
