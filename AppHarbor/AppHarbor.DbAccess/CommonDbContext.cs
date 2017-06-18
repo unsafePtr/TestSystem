@@ -12,7 +12,7 @@ namespace AppHarbor.DbAccess
     /// </summary>
     public class CommonDbContext : IdentityDbContext<User>, IAppHarborDbContext, ITestSystemDbContext
     {
-        public CommonDbContext() : this("ConnectionString") { }
+        public CommonDbContext() : this("AppHarborConnection") { }
 
         public CommonDbContext(string connectionString) : base(connectionString)
         {

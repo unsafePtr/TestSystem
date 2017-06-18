@@ -17,9 +17,9 @@ namespace AppHarbor.App_Start
         private static void RegisterDependencies(this Container container)
         {
             // configure context and asp identity
-            container.Register<IAppHarborDbContext>(() => new AppHarborDbContext("ConnectionString"), Lifestyle.Scoped);
-            container.Register<AppHarborDbContext>(() => new AppHarborDbContext("ConnectionString"), Lifestyle.Scoped);
-            container.Register<ITestSystemDbContext>(() => new TestSystemDbContext("ConnectionString"), Lifestyle.Scoped);
+            container.Register<IAppHarborDbContext>(() => new AppHarborDbContext("AppHarborConnection"), Lifestyle.Scoped);
+            container.Register<AppHarborDbContext>(() => new AppHarborDbContext("AppHarborConnection"), Lifestyle.Scoped);
+            container.Register<ITestSystemDbContext>(() => new TestSystemDbContext("AppHarborConnection"), Lifestyle.Scoped);
             container.Register<IUserStore<User>>(() => new UserStore<User>(container.GetInstance<AppHarborDbContext>()), Lifestyle.Scoped);
             container.Register<UserManager<User>>(Lifestyle.Scoped);
 
