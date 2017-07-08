@@ -1,0 +1,30 @@
+﻿@model IdnetityExample.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h2>Please fill form below</h2>
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        @Html.ValidationSummary()
+        <div>
+            @Html.TextBoxFor(m => m.UserName, new { @placeholder = Html.DisplayNameFor(m => m.UserName) })
+        </div>
+        <div>
+            @Html.PasswordFor(m => m.Password, new { @placeholder = Html.DisplayNameFor(m => m.Password) })
+        </div>
+        <div>
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @placeholder = Html.DisplayNameFor(m => m.ConfirmPassword) })
+        </div>
+        <div>
+            <label>Register as lector:</label>
+            @Html.CheckBoxFor(m => m.IsLector)
+        </div>
+        <div>
+            <input type="submit" value="create an account">
+        </div>
+    }
+</div>
+
