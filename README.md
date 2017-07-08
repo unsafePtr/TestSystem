@@ -1,0 +1,14 @@
+TestSystem is a library which provides functionality for create/run educational tests for students and lectors.
+I pursued the following goals:
+1. Use of EntityFramework and LINQ for queries for a database abstraction.
+2. The library should work independently or be able to integrate easy with target application.
+
+For the first goal I considered that using of code first approach will be good idea. But unfortunately I was disappointed. Every database has some types/features which can’t be abstracted. PostgreSQL doesn’t supports code first and has scheme “public” versus “dbo” in SQLServer. We will not be able to run our library on PostgreSQL cause it’s forbidden code first(as I understood this is available in v.10 which is currently in beta). Type *datetime2* exists just in SQLServer, and it's more preferable than *datetime*, but code first will create column with *datetime* type. Some of databases doesn’t support inheritance.
+
+For the second goal, I met two problems – authorization and extensibility. To work independently we should provide some authorization mechanism. .NET way is a role based authorization, which means that we should manage users and roles internally. Now image that you have already running asp.net project which already has users and roles. How you will synchronize roles and authorization rights between your project and TestSystem library? It made me to think that role based authorization is a very bad approach in libraries where roles should be managed internally. Fortunately I found a way and it’s so called permission based authorization or someone call it claim based authorization.
+
+The idea is that our rights are based on permissions. You can buy a beer when your age is more than 18 years old, or you can’t enter in female toilet if you are a man. First one example was the age permission, second one was the gender permission. The most powerful is that roles actually are particular case of permissions.
+
+In .NET every one thread can be associated with some principal. Principal represents authorization rights and can be accessed by  ``` Thread.CurrentPrincipal```. To access properties and methods you should cast it to ```ClaimsPrincipal```. When you make authorization it associates roles with current running thread. As Thread is static class you can access it from anyone part of application. In such way forx example works AspNetIdentity.
+
+All methods can be access from ```TestSystemService``` class, and they are pure in sense that doesn’t provide logging, authorization, caching. If library is run independently, than should be used ```TestSystemServiceProxy``` class. It internally checks current thread for ```ActionPermission``` claims. Values for this claim type are placed in ```ActionPermissionValues``` class. For caching and logging you could implement decorator pattern. 
